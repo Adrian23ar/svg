@@ -53,13 +53,13 @@ const svgs = {
 // ── Configurador de Letras (Añadido identificador ID para colisiones) ──
 const kidsboroLetters = [
   { ch: 'K', color: '#F5A623', id: 'l-k' },
-  { ch: 'I', color: '#E91E8C', kid: 'kidI', replace: true, id: 'l-i' }, // Niña Rosa
+  { ch: 'I', color: '#E91E8C', kid: 'kidI', id: 'l-i' }, // Niña Rosa
   { ch: 'D', color: '#4ba449', id: 'l-d' },
   { ch: 'S', color: '#00b6ab', id: 'l-s' },
   { ch: 'B', color: '#ed1f24', id: 'l-b' },
-  { ch: 'O', color: '#4ba449', kid: 'swirlO', id: 'l-o1' }, // Niña Leyendo
+  { ch: 'O', color: '#4ba449', kid: 'swirlO' }, // Niña Leyendo
   { ch: 'R', color: '#00b6ab', id: 'l-r' },
-  { ch: 'O', color: '#E91E8C', kid: 'curledO', id: 'l-o2' },
+  { ch: 'O', color: '#E91E8C', kid: 'curledO', id: 'l-o1' },
 ];
 
 const academyLetters = [

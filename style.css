@@ -115,13 +115,11 @@ a.letter {
   letter-spacing: 0.01em;
   position: relative;
   cursor: pointer;
-  text-decoration: none; /* Le quita la raya del link */
+  text-decoration: none;
   text-shadow:
     4px 4px 0 rgba(0, 0, 0, 0.28),
     0 6px 12px rgba(0, 0, 0, 0.12);
-  transition:
-    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-    filter 0.25s ease;
+  transition: all 0.25s ease-in-out;
   will-change: transform;
 }
 
@@ -139,11 +137,12 @@ a.letter {
 }
 
 .kid-i-svg {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   object-fit: contain; /* Encaja sin deformarse ni expandir la caja */
   filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.28));
   margin-bottom: 2px;
+  margin-right: 0.625rem;
 }
 
 /* Resto de SVG Kids */
@@ -200,8 +199,8 @@ a.letter {
   width: clamp(2.8rem, 8vw, 6rem);
 }
 .kid-y-svg {
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
   display: block;
   filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.28));
 }
@@ -234,7 +233,10 @@ a.letter {
 
 /* ── BUCLES GIF (Niños I, O, Y) ── */
 
-/* Niña Rosa Saltando (Bucle infinito) */
+/* ── FASE 2: BUCLES GIF (Niños I, O, Y) ── */
+
+/* 1. I - Niña Rosa Saltando (Bucle infinito) */
+/* (Sin cambios aquí, pero mantenemos para contexto) */
 @keyframes kidJumpLoop {
   0%,
   100% {
@@ -249,7 +251,8 @@ a.letter {
   transition: transform 0.2s ease;
 }
 
-/* Niña leyendo pasando hoja (Bucle infinito) */
+/* 2. O - Niña leyendo pasando hoja (Bucle infinito) */
+/* (Sin cambios aquí) */
 @keyframes pageTurnLoop {
   0%,
   100% {
@@ -257,7 +260,7 @@ a.letter {
     opacity: 1;
   }
   35% {
-    transform: rotate(-25deg) translateY(-1px) translateX(5px);
+    transform: rotate(-25deg) translateY(-2px) translateX(-2px);
     opacity: 0.8;
   }
   60% {
@@ -271,46 +274,50 @@ a.letter {
   animation: pageTurnLoop 2.5s ease-in-out infinite;
 }
 
-/* Niño Rojo Saludando (Bucle infinito) */
-@keyframes handWaveLoop {
+/* 3. Y - Niño Rojo Saludando (Bucle infinito) */
+@keyframes saluteLoop {
   0%,
   100% {
     transform: rotate(0deg);
   }
-  30% {
+  20% {
     transform: rotate(-25deg);
   }
+  40% {
+    transform: rotate(-10deg);
+  }
   60% {
-    transform: rotate(5deg);
+    transform: rotate(-25deg);
+  }
+  80% {
+    transform: rotate(-5deg);
   }
 }
+
 #l-y #brazo-der {
   transform-box: fill-box;
-  transform-origin: top left;
-  animation: handWaveLoop 1.8s ease-in-out infinite;
+  /* Ajustamos la "bisagra" hacia el centro del hombro */
+  transform-origin: 12% 15%;
+  animation: saluteLoop 1.2s ease-in-out infinite;
 }
 
-/* ── NIÑA VERDE CAMINANTE ── */
+/* ── FASE 3: NIÑA VERDE CAMINANTE (Camino Complejo Abajo y Arriba) ── */
 .green-walker {
   position: absolute;
-  bottom: -20px; /* Pasa justito por debajo de las letras */
-  left: -10%;
-  width: clamp(2rem, 5vw, 3.5rem);
   z-index: 5;
-  animation: walkAcross 10s linear infinite;
+  width: clamp(2rem, 5vw, 3.5rem);
+
+  /* Quitamos bottom y left estáticos para que los maneje la animación */
+  /* bottom: -20px; */
+  /* left: -10%; */
+
+  /* Usamos la nueva animación walkComplexPath y aumentamos la duración (16s)
+     para cubrir el camino más largo de forma natural */
+  animation: walkComplexPath 16s linear infinite;
   transition: transform 0.2s ease;
 }
 
-@keyframes walkAcross {
-  0% {
-    left: -10%;
-  }
-  100% {
-    left: 110%;
-  }
-}
-
-/* Animación de las piernas al caminar */
+/* (Leg animation keyframes sin cambios) */
 @keyframes legLeft {
   0%,
   100% {
@@ -333,12 +340,94 @@ a.letter {
 .green-walker #leg_left {
   transform-box: fill-box;
   transform-origin: top center;
-  animation: legLeft 0.8s infinite ease-in-out;
+  animation: legLeft 1s infinite ease-in-out;
 }
 .green-walker #leg_right {
   transform-box: fill-box;
   transform-origin: top center;
-  animation: legRight 0.8s infinite ease-in-out;
+  animation: legRight 1s infinite ease-in-out;
+}
+
+/* ELIMINAR LOS VIEJOS KEYFRAMES 'walkAcross' */
+/* @keyframes walkAcross { ... } */
+
+/* ── FASE 3: NIÑA VERDE CAMINANTE (Camino Complejo: Izq->Der ARRIBA, Der->Izq ABAJO) ── */
+.green-walker {
+  position: absolute;
+  z-index: 5;
+  width: clamp(2.5rem, 5vw, 1.5rem);
+  
+  /* Aseguramos que no haya valores estáticos aquí, solo la animación */
+  /* Usamos una duración de 16s para un bucle complejo y natural */
+  animation: walkComplexPath 16s linear infinite; 
+  transition: transform 0.2s ease-in-out; /* Para giros suaves */
+}
+
+/* (Leg animation keyframes sin cambios) */
+@keyframes legLeft { 0%, 100% { transform: rotate(-20deg); } 50% { transform: rotate(20deg); } }
+@keyframes legRight { 0%, 100% { transform: rotate(20deg); } 50% { transform: rotate(-20deg); } }
+
+.green-walker #leg_left { transform-box: fill-box; transform-origin: top center; animation: legLeft 0.8s infinite ease-in-out; }
+.green-walker #leg_right { transform-box: fill-box; transform-origin: top center; animation: legRight 0.8s infinite ease-in-out; }
+
+
+/* NUEVA ANIMACIÓN: CAMINO RECTANGULAR CORREGIDO (K->O ARRIBA, O->A ABAJO) */
+/* Lógica de escala (Sin Moonwalk):
+   El dibujo original mira a la IZQUIERDA.
+   - Para caminar a la DERECHA: Necesitamos FLIP -> scaleX(-1)
+   - Para caminar a la IZQUIERDA: Necesitamos POSE ORIGINAL -> scaleX(1)
+*/
+@keyframes walkComplexPath {
+  /* --- COMIENZO ARRIBA (Caminando a la DERECHA) --- */
+  /* Empieza arriba, a la izquierda de la 'K' */
+  0% {
+    left: -10%;
+    bottom: 16vw; /* Altura por encima de las letras */
+    transform: scaleX(-1); /* Giramos para caminar a la der */
+  }
+  /* Camina hacia la derecha hasta pasar la 'O' */
+  38% {
+    left: 110%;
+    bottom: 16vw;
+    transform: scaleX(-1);
+  }
+  
+  /* --- SALTO OCULTO (Pasa de arriba derecha a abajo derecha instantáneamente) --- */
+  40% {
+    left: 110%;
+    bottom: -2vw; /* Altura por debajo de las letras */
+    transform: scaleX(-1); /* Aún mirando a la der */
+  }
+  
+  /* --- GIRO (Se da la vuelta para mirar a la izquierda) --- */
+  45% {
+    left: 110%;
+    bottom: -2vw;
+    transform: scaleX(1); /* Volvemos a su pose original para caminar a la izq */
+  }
+  
+  /* --- CAMINO ABAJO (Caminando a la IZQUIERDA) --- */
+  /* Camina hacia la izquierda hasta pasar la 'A' de Academy */
+  83% {
+    left: -10%;
+    bottom: -2vw;
+    transform: scaleX(1);
+  }
+  
+  /* --- SALTO OCULTO (Pasa de abajo izquierda a arriba izquierda instantáneamente) --- */
+  85% {
+    left: -10%;
+    bottom: 16vw;
+    transform: scaleX(1); /* Aún mirando a la izq */
+  }
+  
+  /* --- GIRO Y RESET (Se prepara para el siguiente ciclo) --- */
+  /* Vuelve a mirar a la derecha para reiniciar en 0% */
+  90%, 100% {
+    left: -10%;
+    bottom: 16vw;
+    transform: scaleX(-1); /* GIRA MIRANDO A LA DERECHA */
+  }
 }
 
 /* ── EFECTOS DE INTERACCIÓN (Comandados por JS) ── */
@@ -369,9 +458,13 @@ a.letter {
     transform: scale(1.4);
     opacity: 0.3;
   }
+  75% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .blinking-fast {
-  animation: fastBlink 0.25s infinite !important;
+  animation: fastBlink 0.75s infinite !important;
   filter: brightness(1.5);
 }
 

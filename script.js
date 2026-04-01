@@ -21,7 +21,7 @@ const svgs = {
   </svg>`,
 
   // Niña Verde Caminante
-  walker: `<svg viewBox="100 20 100 200" xmlns="http://www.w3.org/2000/svg">
+  walker: `<svg viewBox="40 10 160 210" xmlns="http://www.w3.org/2000/svg">
     <g id="kid_green">
       <path id="body" d="M153.57,176.18c14.21-3.32,14.13-2.64,15.35-2.32,6.05,1.57-2.87-22.11-2.62-26.28.43-7.21,1.39-7.37-1.22-14.13-1.05-2.71,1.15-2.7.6-5.57-1.23-6.38,3.17-5.91,2.54-12.33-1.11-11.29-.32-11.34-2.63-22.48-1.07-5.11-3.34-6.84.6-10.34,1.62-1.44-5.5-8.94-7.32-11.39-.85-1.25,1-4.43,4.57-3.13,2.45,2,6,18.73,7.42,21.18,1,2.67,11.82,11.15,16.09-2.49-13.51-5.25-6.15-26.68-19.61-30-2.14-.88-1.53,0-3.34-1.13-.7-.94-.39.42-.94-1.58a15.72,15.72,0,0,0-1.2-4.39C156.52,35.39,148.57,36.05,148,35.55c-4.52-.48-5.76-.53-6.93-.6a15.87,15.87,0,0,0-5.17.31,57.11,57.11,0,0,0-8.63,2c-3.18,1.42-2.36,1-5.27,3.63l-1.75,2.48c0,.13-.41.45-1.24,1.78-1.4,3.48-.79,2.93-1,3.41.13.67-.28,1-.15,2.18a2.29,2.29,0,0,1-.13,1,15.72,15.72,0,0,1-.63,1.69c-1.15,4.62-.79,6.37,1.57,11.34.64,1.36,2.21-1.35,2.8-.85.16.15-.55.57,1.44,2.32,2.63,2.3,2.43,2.61,2.08,6.07-.24,2.43,2.51,2.52,3.08,3.1s5.95,6,9,5.46c2.15-.4,3.37-1.29,3.1.82-.25,2-3-1.22-6,6-1,3.23-2,4.61-2.66,7-1,6.13-.53,3.79-1,6.13-.26,1.36-.71,2.74-.88,4.2-.38,2.8.17,3.82,0,5a23.66,23.66,0,0,0,.07,5.22c-.44,2.88-.44,2.88-.75,6-1.92,4.67-1.08,1.76-.92,5.81,0,3.35-.09,3.12.49,4.32,1.86,3.79-.57,5.62-2.48,9.43l-.61,2.07c-1.45,6.73,2-4.48-5,15.52.32,3.43-3.85,2.6-4,3.52s.89,7.18,8.84,8.71c2,.57,7.89,2.47,9.77,4.82" fill="#429e3c" fill-rule="evenodd"/>
       <path id="leg_right" d="M155.88,171.29c.78.58-6.76-7-11.76-6-2.75.91-4.34,5.91-4.38,6.62a9.55,9.55,0,0,0-.2,1.66c.84,8.18,2.49,7.64,10.82,18,.72.9,7.36,9.19,7.8,12.08.77,5.16-9.28,9.24-9,13.33.12,1.62,1,1.83,3.17,3.11,3,1.75,8.77-2.51,11.16-4.24,4.12-3,18.23-8.27,4.18-15.94-4.44-2.42-1-12.52-7.47-19.77-1.08-1.21-1.1-4.44-2.94-6.87" fill="#429e3c" fill-rule="evenodd"/>
@@ -50,33 +50,36 @@ const svgs = {
   kidM: `<svg class="kid-svg" viewBox="0 0 38 58" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="19" cy="6" r="5"/><path d="M15 12 L13 29 L17 29 L19 22 L21 29 L25 29 L23 12 Z"/><path d="M13 14 L4 8 L5 6 L14 12 Z"/><path d="M25 14 L33 20 L32 22 L24 16 Z"/><path d="M13 29 L8 44 L12 45 L17 32 Z"/><path d="M25 29 L27 45 L23 46 L21 32 Z"/></svg>`,
 };
 
-// ── Configurador de Letras (Añadido identificador ID para colisiones) ──
+// ── Configurador de Letras (Añadido el 'url' a cada una) ──
 const kidsboroLetters = [
-  { ch: 'K', color: '#F5A623', id: 'l-k' },
-  { ch: 'I', color: '#E91E8C', kid: 'kidI', id: 'l-i' }, // Niña Rosa
-  { ch: 'D', color: '#4ba449', id: 'l-d' },
-  { ch: 'S', color: '#00b6ab', id: 'l-s' },
-  { ch: 'B', color: '#ed1f24', id: 'l-b' },
-  { ch: 'O', color: '#4ba449', kid: 'swirlO' }, // Niña Leyendo
-  { ch: 'R', color: '#00b6ab', id: 'l-r' },
-  { ch: 'O', color: '#E91E8C', kid: 'curledO', id: 'l-o1' },
+  { ch: 'K', color: '#F5A623', id: 'l-k', url: '#link-k' },
+  { ch: 'I', color: '#E91E8C', kid: 'kidI', id: 'l-i', url: '#link-i' }, // Niña Rosa
+  { ch: 'D', color: '#4ba449', id: 'l-d', url: '#link-d' },
+  { ch: 'S', color: '#00b6ab', id: 'l-s', url: '#link-s' },
+  { ch: 'B', color: '#ed1f24', id: 'l-b', url: '#link-b' },
+  { ch: 'O', color: '#4ba449', kid: 'swirlO', url: '#link-o1' }, // Niña Leyendo
+  { ch: 'R', color: '#00b6ab', id: 'l-r', url: '#link-r' },
+  { ch: 'O', color: '#E91E8C', kid: 'curledO', id: 'l-o1', url: '#link-o2' },
 ];
 
 const academyLetters = [
-  { ch: 'A', color: '#4ba449', kid: 'starA', id: 'l-a1' },
-  { ch: 'C', color: '#E91E8C', id: 'l-c' },
-  { ch: 'A', color: '#F5A623', id: 'l-a2' },
-  { ch: 'D', color: '#00b6ab', id: 'l-d2' },
-  { ch: 'E', color: '#4ba449', id: 'l-e' },
-  { ch: 'M', color: '#F5A623', id: 'l-m' },
+  { ch: 'A', color: '#4ba449', kid: 'starA', id: 'l-a1', url: '#link-a1' },
+  { ch: 'C', color: '#E91E8C', id: 'l-c', url: '#link-c' },
+  { ch: 'A', color: '#F5A623', id: 'l-a2', url: '#link-a2' },
+  { ch: 'D', color: '#00b6ab', id: 'l-d2', url: '#link-d2' },
+  { ch: 'E', color: '#4ba449', id: 'l-e', url: '#link-e' },
+  { ch: 'M', color: '#F5A623', id: 'l-m', url: '#link-m' },
 ];
 
-// ── Constructor de Letras (Ahora son LINKS <a>) ──
-function buildLetter({ ch, color, kid, replace, id }, delay) {
-  const link = document.createElement('a'); // Ahora son enlaces
-  link.href = "#"; // Aquí pones tu destino final
+// ── Constructor de Letras (Ahora lee el 'url') ──
+function buildLetter({ ch, color, kid, replace, id, url }, delay) {
+  const link = document.createElement('a');
+
+  // Asignamos la url única. Si por alguna razón olvidas ponerla en el array, pondrá "#" por defecto
+  link.href = url || "#";
+
   link.className = `letter letter-out`;
-  link.id = id;
+  if (id) link.id = id;
   link.style.color = color;
 
   if (replace) {
@@ -105,7 +108,7 @@ academyLetters.forEach((def, i) => rowA.appendChild(buildLetter(def, 640 + i * 8
 // Niño Y (Rojo)
 const yDelay = 640 + 6 * 80;
 const ySpan = document.createElement('a');
-ySpan.href = "#";
+ySpan.href = "#link-y"; // <--- AQUÍ PONES EL LINK PARA LA LETRA Y
 ySpan.className = 'letter letter-y letter-out';
 ySpan.id = 'l-y';
 ySpan.style.color = '#ed1f24';
@@ -124,37 +127,71 @@ text.split('').forEach((ch, i) => {
   sub.appendChild(s);
 });
 
-// ── Inyectar a la Niña Verde Caminante ──
+// ── Inyectar a la Niña Verde Caminante (NUEVA ESTRUCTURA EN CAPAS) ──
 const logoContainer = document.getElementById('logo');
+
+// 1. Creamos el contenedor externo (Controla la ruta y los giros)
+const walkerContainer = document.createElement('div');
+walkerContainer.className = 'walker-container';
+
+// 2. Creamos el div interno (Controla el bobbing y los saltos)
 const walkerDiv = document.createElement('div');
 walkerDiv.className = 'green-walker';
 walkerDiv.innerHTML = svgs.walker;
-logoContainer.appendChild(walkerDiv);
+
+// 3. Metemos la niña en su contenedor, y el contenedor al logo
+walkerContainer.appendChild(walkerDiv);
+logoContainer.appendChild(walkerContainer);
 
 
 // ── LÓGICA DEL DIRECTOR DE ESCENA (Colisiones) ──
 window.addEventListener('load', () => {
   const letters = document.querySelectorAll('.letter');
-  const walker = document.querySelector('.green-walker');
+
+  // Seleccionamos ambas capas
+  const walkerOuter = document.querySelector('.walker-container'); // Para medir posición
+  const walkerInner = document.querySelector('.green-walker');     // Para aplicar el salto
+
   const pinkGirl = document.getElementById('l-i');
   const redSpiral = document.getElementById('espiral-roja');
 
+  // Necesitamos saber qué fila contiene qué letras para la lógica de colisión 2D
+  const kidsboroRow = document.getElementById('row-kidsboro');
+  const academyRow = document.getElementById('row-academy');
+
   function checkCollisions() {
-    const walkerRect = walker.getBoundingClientRect();
+    // Medimos la posición usando el contenedor externo
+    const walkerRect = walkerOuter.getBoundingClientRect();
     const walkerCenterX = walkerRect.left + (walkerRect.width / 2);
+    const walkerCenterY = walkerRect.top + (walkerRect.height / 2);
+
+    // Obtenemos los límites verticales de cada fila de palabras
+    const kidsboroRect = kidsboroRow.getBoundingClientRect();
+    const academyRect = academyRow.getBoundingClientRect();
+
+    // Determinamos si la niña está en la pista de arriba o en la de abajo
+    // Damos un margen de holgura generoso para asegurar que la detecte
+    const isWalkingTop = walkerCenterY < kidsboroRect.bottom + 50;
+    const isWalkingBottom = walkerCenterY > academyRect.top - 50;
 
     letters.forEach(letter => {
-      // Ignoramos la 'Y' porque la niña verde no llega hasta allá
+      // Ignoramos la 'Y' porque la niña verde no interactúa con ella
       if (letter.id === 'l-y') return;
 
       const rect = letter.getBoundingClientRect();
+      const isKidsboroLetter = kidsboroRow.contains(letter);
+      const isAcademyLetter = academyRow.contains(letter);
 
-      // Si la niña verde camina justo por debajo de la letra
-      if (walkerCenterX > rect.left && walkerCenterX < rect.right) {
+      // Lógica de colisión 2D (Eje X Y Eje Y)
+      // Comprueba que coincide en horizontal Y que está en la fila correcta
+      const isHorizontalMatch = walkerCenterX > rect.left && walkerCenterX < rect.right;
+      const isVerticalMatch = (isWalkingTop && isKidsboroLetter) || (isWalkingBottom && isAcademyLetter);
+
+      if (isHorizontalMatch && isVerticalMatch) {
 
         // Caso Especial: Letra I (Niña Rosa)
         if (letter.id === 'l-i') {
-          walker.classList.add('pushing-up');
+          walkerInner.classList.add('pushing-up'); // El salto se aplica a la capa interna
           pinkGirl.classList.add('pushed-high');
           redSpiral.classList.add('blinking-fast');
         } else {
@@ -162,10 +199,10 @@ window.addEventListener('load', () => {
           letter.classList.add('letter-zoom-active');
         }
       } else {
-        // Cuando la niña ya pasó, se apagan los efectos
+        // Cuando la niña ya pasó o no está en esa fila, se apagan los efectos
         letter.classList.remove('letter-zoom-active');
         if (letter.id === 'l-i') {
-          walker.classList.remove('pushing-up');
+          walkerInner.classList.remove('pushing-up');
           pinkGirl.classList.remove('pushed-high');
           redSpiral.classList.remove('blinking-fast');
         }

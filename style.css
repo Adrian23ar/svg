@@ -454,7 +454,8 @@ a.letter {
 .letter-zoom-active {
   transform: scale(1.2) translateY(-10px) !important;
   filter: brightness(1.2) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
-  z-index: 10;
+  /* MODIFICADO: Subimos el nivel a 50 para que quede por encima de la niña */
+  z-index: 50 !important;
 }
 
 /* Efecto especial para la letra I */
@@ -464,6 +465,8 @@ a.letter {
 .pushed-high {
   transform: translateY(-35px) scale(1.1) !important; /* La letra 'I' vuela hacia arriba */
   filter: brightness(1.2) drop-shadow(0 15px 20px rgba(0, 0, 0, 0.2));
+  /* NUEVO: Aseguramos que el salto también ocurra por delante de la niña verde */
+  z-index: 50 !important;
 }
 
 @keyframes fastBlink {
@@ -517,4 +520,56 @@ a.letter {
   a.letter {
     font-size: clamp(2.2rem, 12vw, 3.8rem);
   }
+}
+
+/* ── EFECTO TOOLTIP PREVIEW (HOVER EN LETRAS) ── */
+.preview-card {
+  position: absolute;
+  /* Flota justo por encima de la letra */
+  bottom: 110%;
+  left: 50%;
+
+  /* Estado normal (Escondido, un poco más abajo y ligeramente más pequeño) */
+  transform: translateX(-50%) translateY(15px) scale(0.8);
+  opacity: 0;
+  visibility: hidden;
+
+  /* Tamaño de la tarjeta (Responsive) */
+  width: clamp(140px, 15vw, 220px);
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px;
+
+  /* Sombra y un borde del mismo color de la letra respectiva (currentColor) */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  border: 3px solid currentColor;
+
+  /* pointer-events: none evita que el mouse interactúe con la tarjeta y cause parpadeos molestos */
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+}
+
+/* La imagen dentro de la tarjeta */
+.preview-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  object-fit: cover;
+  /* Forzamos formato horizontal tipo pantalla de PC (16:9) por si tus imágenes son de otro tamaño */
+  aspect-ratio: 16 / 9;
+  background-color: #f0f0f0; /* Color gris de fondo mientras carga la imagen */
+}
+
+/* Al hacer hover en la letra, la tarjeta aparece, sube a su posición final y crece a escala 1 */
+a.letter:hover .preview-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* NUEVO: Al hacer hover, la letra y su imagen saltan hasta el frente de todo */
+a.letter:hover {
+  z-index: 100 !important;
 }

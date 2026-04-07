@@ -50,34 +50,33 @@ const svgs = {
   kidM: `<svg class="kid-svg" viewBox="0 0 38 58" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="19" cy="6" r="5"/><path d="M15 12 L13 29 L17 29 L19 22 L21 29 L25 29 L23 12 Z"/><path d="M13 14 L4 8 L5 6 L14 12 Z"/><path d="M25 14 L33 20 L32 22 L24 16 Z"/><path d="M13 29 L8 44 L12 45 L17 32 Z"/><path d="M25 29 L27 45 L23 46 L21 32 Z"/></svg>`,
 };
 
-// ── Configurador de Letras (Añadido el 'url' a cada una) ──
+// ── Configurador de Letras (Añadido el 'url' y el 'img' a cada una) ──
 const kidsboroLetters = [
-  { ch: 'K', color: '#F5A623', id: 'l-k', url: '#link-k' },
-  { ch: 'I', color: '#E91E8C', kid: 'kidI', id: 'l-i', url: '#link-i' }, // Niña Rosa
-  { ch: 'D', color: '#4ba449', id: 'l-d', url: '#link-d' },
-  { ch: 'S', color: '#00b6ab', id: 'l-s', url: '#link-s' },
-  { ch: 'B', color: '#ed1f24', id: 'l-b', url: '#link-b' },
-  { ch: 'O', color: '#4ba449', kid: 'swirlO', url: '#link-o1' }, // Niña Leyendo
-  { ch: 'R', color: '#00b6ab', id: 'l-r', url: '#link-r' },
-  { ch: 'O', color: '#E91E8C', kid: 'curledO', id: 'l-o1', url: '#link-o2' },
+  { ch: 'K', color: '#F5A623', id: 'l-k', url: '#link-k', img: 'preview-k.jpg' },
+  { ch: 'I', color: '#E91E8C', kid: 'kidI', replace: false, id: 'l-i', url: '#link-i', img: 'preview-i.jpg' },
+  { ch: 'D', color: '#4ba449', id: 'l-d1', url: '#link-d1', img: 'preview-d1.jpg' },
+  { ch: 'S', color: '#00b6ab', id: 'l-s', url: '#link-s', img: 'preview-s.jpg' },
+  { ch: 'B', color: '#ed1f24', id: 'l-b', url: '#link-b', img: 'preview-b.jpg' },
+  { ch: 'O', color: '#4ba449', kid: 'swirlO', url: '#link-o1', img: 'preview-o1.jpg' },
+  { ch: 'R', color: '#00b6ab', id: 'l-r', url: '#link-r', img: 'preview-r.jpg' },
+  { ch: 'O', color: '#E91E8C', kid: 'curledO', id: 'l-o1', url: '#link-o2', img: 'preview-o2.jpg' },
 ];
 
 const academyLetters = [
-  { ch: 'A', color: '#4ba449', kid: 'starA', id: 'l-a1', url: '#link-a1' },
-  { ch: 'C', color: '#E91E8C', id: 'l-c', url: '#link-c' },
-  { ch: 'A', color: '#F5A623', id: 'l-a2', url: '#link-a2' },
-  { ch: 'D', color: '#00b6ab', id: 'l-d2', url: '#link-d2' },
-  { ch: 'E', color: '#4ba449', id: 'l-e', url: '#link-e' },
-  { ch: 'M', color: '#F5A623', id: 'l-m', url: '#link-m' },
+  { ch: 'A', color: '#4ba449', kid: 'starA', id: 'l-a1', url: '#link-a1', img: 'preview-a1.jpg' },
+  { ch: 'C', color: '#E91E8C', id: 'l-c', url: '#link-c', img: 'preview-c.jpg' },
+  { ch: 'A', color: '#F5A623', id: 'l-a2', url: '#link-a2', img: 'preview-a2.jpg' },
+  { ch: 'D', color: '#00b6ab', id: 'l-d2', url: '#link-d2', img: 'preview-d2.jpg' },
+  { ch: 'E', color: '#4ba449', id: 'l-e', url: '#link-e', img: 'preview-e.jpg' },
+  { ch: 'M', color: '#F5A623', id: 'l-m', url: '#link-m', img: 'preview-m.jpg' },
 ];
 
-// ── Constructor de Letras (Ahora lee el 'url') ──
-function buildLetter({ ch, color, kid, replace, id, url }, delay) {
+// ── Constructor de Letras (Ahora construye el Tooltip de Imagen) ──
+function buildLetter({ ch, color, kid, replace, id, url, img }, delay) {
   const link = document.createElement('a');
 
-  // Asignamos la url única. Si por alguna razón olvidas ponerla en el array, pondrá "#" por defecto
+  // Asignamos la url
   link.href = url || "#";
-
   link.className = `letter letter-out`;
   if (id) link.id = id;
   link.style.color = color;
@@ -95,6 +94,14 @@ function buildLetter({ ch, color, kid, replace, id, url }, delay) {
     }
   }
 
+  // --- NUEVA LÓGICA: CREAR LA TARJETA PREVIEW ---
+  if (img) {
+    const previewCard = document.createElement('div');
+    previewCard.className = 'preview-card';
+    previewCard.innerHTML = `<img src="${img}" alt="Preview de página" onerror="this.style.display='none'">`;
+    link.appendChild(previewCard);
+  }
+
   setTimeout(() => link.classList.replace('letter-out', 'letter-in'), delay);
   return link;
 }
@@ -105,16 +112,21 @@ kidsboroLetters.forEach((def, i) => rowK.appendChild(buildLetter(def, i * 80)));
 const rowA = document.getElementById('row-academy');
 academyLetters.forEach((def, i) => rowA.appendChild(buildLetter(def, 640 + i * 80)));
 
-// Niño Y (Rojo)
+// Niño Y (Rojo) - Construido manualmente con su preview
 const yDelay = 640 + 6 * 80;
 const ySpan = document.createElement('a');
-ySpan.href = "#link-y"; // <--- AQUÍ PONES EL LINK PARA LA LETRA Y
+ySpan.href = "#link-y";
 ySpan.className = 'letter letter-y letter-out';
 ySpan.id = 'l-y';
 ySpan.style.color = '#ed1f24';
-ySpan.innerHTML = svgs.kidY;
+
+// Inyectamos el SVG del niño rojo + el HTML del Tooltip preview
+ySpan.innerHTML = svgs.kidY + `<div class="preview-card"><img src="preview-y.jpg" alt="Preview de página" onerror="this.style.display='none'"></div>`;
+
 setTimeout(() => ySpan.classList.replace('letter-out', 'letter-in'), yDelay);
 rowA.appendChild(ySpan);
+
+
 
 // Subtítulo
 const sub = document.getElementById('subtitle');

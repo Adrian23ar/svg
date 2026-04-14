@@ -224,43 +224,11 @@ a.letter {
   }
 }
 
-/* ── BUCLES GIF (Niños I, O, Y) ── */
-
 /* ── FASE 2: BUCLES GIF (Niños I, O, Y) ── */
 
-/* 1. I - Niña Rosa Saltando (Bucle infinito con Squash & Stretch) */
-@keyframes kidJumpLoop {
-  0%,
-  100% {
-    transform: translateY(0) scale(1, 1);
-  }
-  15% {
-    /* Anticipación: Se agacha un poco antes de saltar */
-    transform: translateY(1px) scale(1.05, 0.9);
-  }
-  35% {
-    /* Despegue: Se estira hacia arriba */
-    transform: translateY(-3px) scale(0.95, 1.05);
-  }
-  50% {
-    /* Punto más alto en el aire: Recupera su forma */
-    transform: translateY(-5px) scale(1, 1);
-  }
-  65% {
-    /* Cayendo: Se vuelve a estirar por la gravedad */
-    transform: translateY(-2px) scale(0.95, 1.05);
-  }
-  80% {
-    /* Impacto contra el suelo: Se aplasta un poco al caer */
-    transform: translateY(1px) scale(1.05, 0.9);
-  }
-}
-
 #l-i .kid-i-svg {
-  /* MUY IMPORTANTE: El origen debe ser la base para que se agache hacia el piso y no hacia el centro */
+  /* Mantener esto para que el encogimiento ocurra desde los pies */
   transform-origin: bottom center;
-  animation: kidJumpLoop 2s ease-in-out infinite;
-  transition: transform 0.2s ease;
 }
 
 /* 2. O - Niña leyendo pasando hoja (Bucle infinito) */
@@ -308,7 +276,7 @@ a.letter {
   /* ¡LA CLAVE ESTÁ AQUÍ! Moví el eje de rotación un poco más a la izquierda y arriba */
   /* Ajuste fino para la forma específica de tu SVG */
   transform-origin: 1% 100%;
-  animation: saluteLoop 1.2s ease-in-out infinite;
+  animation: saluteLoop 2.2s ease-in-out infinite;
 }
 
 /* ── FASE 3: NIÑA VERDE CAMINANTE (Estructura en Capas para Humanizar) ── */
@@ -328,134 +296,81 @@ a.letter {
   position: relative; /* Por defecto */
   width: 100%;
   height: 100%;
-
-  /* AGREGAR: Animación micro-bobbing (oscilación vertical de pasos) */
-  /* Sincronizada con el ciclo de piernas de 0.8s. Bobbeo rápido cada 0.4s por paso. */
-  animation: humanStepBobbing 0.4s ease-in-out infinite;
 }
 
-/* NUEVA ANIMACIÓN: Bobbing vertical micro para simular pasos humanos */
-@keyframes humanStepBobbing {
-  0%,
-  100% {
-    transform: translateY(0); /* Pies plantados, abajo */
-  }
-  50% {
-    /* Ligero levantamiento del cuerpo durante el movimiento, arriba */
-    /* -3px o -2px es suficiente para que se note pero no sea caricaturesco */
-    transform: translateY(-7px);
-  }
-}
-
-/* (Leg animation keyframes sin cambios Structurally) */
-@keyframes legLeft {
-  0%,
-  100% {
-    transform: rotate(-20deg);
-  }
-  50% {
-    transform: rotate(20deg);
-  }
-}
-@keyframes legRight {
-  0%,
-  100% {
-    transform: rotate(20deg);
-  }
-  50% {
-    transform: rotate(-20deg);
-  }
-}
-
-@keyframes arm {
-  0%,
-  100% {
-    transform: rotate(7deg);
-  }
-  50% {
-    transform: rotate(-7deg);
-  }
-}
-
-/* Las animaciones de piernas siguen colgadas de hijos de .green-walker, no cambia nada */
-.green-walker #leg_left {
-  transform-box: fill-box;
-  transform-origin: top center;
-  animation: legLeft 0.8s infinite ease-in-out;
-}
-.green-walker #leg_right {
-  transform-box: fill-box;
-  transform-origin: top center;
-  animation: legRight 0.8s infinite ease-in-out;
-}
-
+/* Solo conservamos los ejes de rotación (las "bisagras" de la cadera y hombro) */
+.green-walker #leg_left,
+.green-walker #leg_right,
 .green-walker #arm {
   transform-box: fill-box;
   transform-origin: top center;
-  animation: arm 0.8s infinite ease-in-out;
 }
-
 /* MODIFICADA ANIMACIÓN: walkComplexPath (Ahora se aplica al contenedor externo) */
 @keyframes walkComplexPath {
-  /* En lugar de 'bottom: 13vw', usamos 'top: -15%' y 'top: 75%' 
-     para que la altura dependa 100% del tamaño del logo contenedor */
-
-  /* --- COMIENZO ARRIBA (Caminando a la DERECHA) --- */
+  /* --- 0%: PUNTO DE PARTIDA (Fuera de cámara, mirando a la derecha) --- */
   0% {
-    left: -10%;
+    left: -15%;
     top: -45%;
-    transform: scaleX(-1);
-  }
-  38% {
-    left: 100%;
-    top: -45%;
-    transform: scaleX(-1);
+    transform: perspective(500px) rotateY(180deg);
+    animation-timing-function: linear;
   }
 
-  /* --- SALTO OCULTO --- */
+  /* --- 40%: FIN DE LA FILA SUPERIOR --- */
   40% {
-    left: 100%;
-    top: 85%;
-    transform: scaleX(-1);
-  }
-
-  /* --- GIRO --- */
-  45% {
-    left: 100%;
-    top: 85%;
-    transform: scaleX(1);
-  }
-
-  /* --- CAMINO ABAJO (Caminando a la IZQUIERDA) --- */
-  83% {
-    left: -10%;
-    top: 85%;
-    transform: scaleX(1);
-  }
-
-  /* --- SALTO OCULTO --- */
-  85% {
-    left: -10%;
+    left: 105%;
     top: -45%;
-    transform: scaleX(1);
+    transform: perspective(500px) rotateY(180deg);
+    /* Aceleración para la caída */
+    animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
 
-  /* --- GIRO Y RESET --- */
-  90%,
+  /* --- 43%: ATERRIZAJE ABAJO (Cae un poco más a la derecha por la inercia) --- */
+  43% {
+    left: 110%;
+    top: 85%;
+    transform: perspective(500px) rotateY(180deg);
+    animation-timing-function: linear;
+  }
+
+  /* --- 50%: GIRO 3D (Se da la vuelta en el sitio) --- */
+  50% {
+    left: 110%;
+    top: 85%;
+    transform: perspective(500px) rotateY(0deg);
+  }
+
+  /* --- 90%: FIN DE LA FILA INFERIOR --- */
+  90% {
+    left: -10%;
+    top: 85%;
+    transform: perspective(500px) rotateY(0deg);
+    /* Impulso para el salto hacia arriba */
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* --- 93%: LLEGADA ARRIBA --- */
+  93% {
+    left: -15%;
+    top: -45%;
+    transform: perspective(500px) rotateY(0deg);
+    animation-timing-function: linear;
+  }
+
+  /* --- 100%: GIRO FINAL (Vuelve a mirar a la derecha, igual que el 0%) --- */
   100% {
-    left: -10%;
+    left: -15%;
     top: -45%;
-    transform: scaleX(-1);
+    transform: perspective(500px) rotateY(180deg);
   }
 }
 /* ── EFECTOS DE INTERACCIÓN (Comandados por JS) ── */
 
 /* Efecto general de la Niña tocando la letra */
 .letter-zoom-active {
-  transform: scale(1.2) translateY(-10px) !important;
+  transform: scale(1.2) translateY(-10px) rotate(2deg) !important; /* Pequeña inclinación */
   filter: brightness(1.2) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
-  /* MODIFICADO: Subimos el nivel a 50 para que quede por encima de la niña */
   z-index: 50 !important;
+  transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Rebote elástico */
 }
 
 /* Efecto especial para la letra I */

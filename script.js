@@ -156,6 +156,88 @@ walkerContainer.appendChild(walkerDiv);
 logoContainer.appendChild(walkerContainer);
 
 
+
+// ── NUEVO: BIOMECÁNICA CON ANIME.JS ──
+function initHumanWalk() {
+  const stepDuration = 420; // Duración de un paso (en milisegundos)
+
+  // 1. Pierna Izquierda (Efecto péndulo)
+  anime({
+    targets: '.green-walker #leg_left',
+    rotate: [-22, 22],
+    duration: stepDuration,
+    easing: 'easeInOutSine', // Péndulo natural
+    direction: 'alternate',
+    loop: true
+  });
+
+  // 2. Pierna Derecha (Fase invertida a la izquierda)
+  anime({
+    targets: '.green-walker #leg_right',
+    rotate: [22, -22],
+    duration: stepDuration,
+    easing: 'easeInOutSine',
+    direction: 'alternate',
+    loop: true
+  });
+
+  // 3. Brazo (Acompaña el paso)
+  anime({
+    targets: '.green-walker #arm',
+    rotate: [-15, 15],
+    duration: stepDuration,
+    easing: 'easeInOutSine',
+    direction: 'alternate',
+    loop: true
+  });
+
+  // 4. Bobbing con Squash & Stretch (Simula peso al caminar)
+  anime({
+    targets: '.green-walker',
+    translateY: [0, -4],
+    /* Se encoge ligeramente al pisar y se estira al levantar el pie */
+    scaleY: [0.97, 1.03],
+    duration: stepDuration / 2,
+    easing: 'easeInOutQuad',
+    direction: 'alternate',
+    loop: true
+  });
+
+  // 5. EFECTO PRO: Inercia del torso (Pequeña oscilación del cuerpo)
+  anime({
+    targets: '.green-walker #body',
+    rotate: [-1.5, 1.5], // Se inclina muy levemente
+    duration: stepDuration,
+    easing: 'easeInOutSine',
+    direction: 'alternate',
+    loop: true,
+    /* Fijamos el eje de rotación del cuerpo en la cintura */
+    update: function (anim) {
+      const body = document.querySelector('.green-walker #body');
+      if (body) body.style.transformOrigin = "50% 80%";
+    }
+  });
+
+  
+
+  // ── EL SALTO DE LA NIÑA ROSA (I) CON FÍSICAS REALES ──
+  anime({
+    targets: '#l-i .kid-i-svg',
+    keyframes: [
+      { translateY: 2, scaleY: 0.85, duration: 250, easing: 'easeOutQuad' }, // 1. Squash (Impulso)
+      { translateY: -15, scaleY: 1.15, duration: 400, easing: 'easeOutSine' }, // 2. Stretch (Salto)
+      { translateY: -20, scaleY: 1, duration: 150, easing: 'easeInSine' },     // 3. Apex (Punto alto)
+      { translateY: 2, scaleY: 0.85, duration: 300, easing: 'easeInQuad' },   // 4. Landing (Impacto)
+      { translateY: 0, scaleY: 1, duration: 200, easing: 'easeOutQuad' }      // 5. Recovery (Vuelve a normal)
+    ],
+    delay: 500, // Espera un poco entre saltos
+    loop: true
+  });
+}
+
+// Inicializamos la caminata fluida
+initHumanWalk();
+
 // ── LÓGICA DEL DIRECTOR DE ESCENA (Colisiones) ──
 window.addEventListener('load', () => {
   const letters = document.querySelectorAll('.letter');

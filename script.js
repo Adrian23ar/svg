@@ -50,7 +50,7 @@ const svgs = {
   kidM: `<svg class="kid-svg" viewBox="0 0 38 58" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="19" cy="6" r="5"/><path d="M15 12 L13 29 L17 29 L19 22 L21 29 L25 29 L23 12 Z"/><path d="M13 14 L4 8 L5 6 L14 12 Z"/><path d="M25 14 L33 20 L32 22 L24 16 Z"/><path d="M13 29 L8 44 L12 45 L17 32 Z"/><path d="M25 29 L27 45 L23 46 L21 32 Z"/></svg>`,
 };
 
-// ── Configurador de Letras (Añadido el 'url' y el 'img' a cada una) ──
+// ── Configurador de Letras ──
 const kidsboroLetters = [
   { ch: 'K', color: '#F5A623', id: 'l-k', url: '#link-k', img: 'preview-k.jpg' },
   { ch: 'I', color: '#E91E8C', kid: 'kidI', replace: false, id: 'l-i', url: '#link-i', img: 'preview-i.jpg' },

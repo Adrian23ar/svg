@@ -151,7 +151,7 @@ const walkerDiv = document.createElement('div');
 walkerDiv.className = 'green-walker';
 
 // 3. Insertamos tu código de Spline
-walkerDiv.innerHTML = `<spline-viewer url="https://prod.spline.design/Pv97BLqMlnPyPLYO/scene.splinecode"></spline-viewer>`;
+walkerDiv.innerHTML = `<spline-viewer loading-anim-type="none" url="https://prod.spline.design/Pv97BLqMlnPyPLYO/scene.splinecode"></spline-viewer>`;
 
 // 4. Metemos la niña en su contenedor, y el contenedor al logo
 walkerContainer.appendChild(walkerDiv);

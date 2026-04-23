@@ -305,42 +305,42 @@ a.letter {
   transform-box: fill-box;
   transform-origin: top center;
 }
-/* MODIFICADA ANIMACIÓN: walkComplexPath (Ahora se aplica al contenedor externo) */
+/* ANIMACIÓN: walkComplexPath (Ahora se aplica al contenedor externo) */
 @keyframes walkComplexPath {
-  /* --- 0%: PUNTO DE PARTIDA (Fuera de cámara, mirando a la derecha) --- */
+  /* --- 0%: INICIO (Fuera de cámara, a la izquierda) --- */
   0% {
     left: -40%;
     top: -65%;
-    transform: perspective(500px) rotateY(180deg);
     animation-timing-function: linear;
   }
 
-  /* --- 40%: FIN DE LA FILA SUPERIOR --- */
+  /* --- 40%: LLEGA AL FINAL (Lado derecho) --- */
   40% {
     left: 80%;
     top: -65%;
-    transform: perspective(500px) rotateY(180deg);
-    /* Aceleración para la caída */
+    /* Aceleración para la caída (simula gravedad) */
     animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
 
-  /* --- 43%: ATERRIZAJE ABAJO (Cae un poco más a la derecha por la inercia) --- */
+  /* --- 43%: ATERRIZAJE ABAJO (Avanza un poco por inercia) --- */
   43% {
-    left: 85%;
+    left: 82%;
     top: 85%;
-    transform: perspective(500px) rotateY(180deg);
     animation-timing-function: linear;
   }
 
-  /* --- 50%: GIRO 3D (Se da la vuelta en el sitio) --- */
-  50% {
-    left: 85%;
-    top: 85%;  }
+  /* (Tu modelo en Spline hace el giro aquí, así que el CSS solo espera) */
+  /* --- 45%: PREPARADA PARA REGRESAR --- */
+  45% {
+    left: 82%;
+    top: 85%;
+  }
 
-  /* --- 90%: FIN DE LA FILA INFERIOR --- */
+  /* --- 90%: LLEGA AL OTRO EXTREMO (Lado izquierdo) --- */
   90% {
     left: -35%;
-    top: 85%;    /* Impulso para el salto hacia arriba */
+    top: 85%;
+    /* Impulso para el salto hacia arriba */
     animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
@@ -351,11 +351,17 @@ a.letter {
     animation-timing-function: linear;
   }
 
-  /* --- 100%: GIRO FINAL (Vuelve a mirar a la derecha, igual que el 0%) --- */
+  /* (Tu modelo en Spline hace el giro de nuevo) */
+  /* --- 96%: PREPARADA PARA EL SIGUIENTE CICLO --- */
+  96% {
+    left: -40%;
+    top: -65%;
+  }
+
+  /* --- 100%: CIERRE DEL BUCLE (Igual al 0%) --- */
   100% {
     left: -40%;
     top: -65%;
-    transform: perspective(500px) rotateY(180deg);
   }
 }
 /* ── EFECTOS DE INTERACCIÓN (Comandados por JS) ── */
@@ -492,7 +498,7 @@ a.letter:hover {
 spline-viewer {
   width: 100%;
   height: 100%;
-  /* Elimina cualquier fondo gris o marca de agua que pueda traer por defecto */
   background: transparent;
   border: none;
+  pointer-events: none;
 }

@@ -287,7 +287,7 @@ a.letter {
   z-index: 5;
   width: clamp(25rem, 7vw, 3.5rem);
 
-  animation: walkComplexPath 16s linear infinite;
+  animation: walkComplexPath 15.9s linear infinite;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -307,58 +307,36 @@ a.letter {
 }
 /* ANIMACIÓN: walkComplexPath (Ahora se aplica al contenedor externo) */
 @keyframes walkComplexPath {
-  /* --- 0%: INICIO (Fuera de cámara, a la izquierda) --- */
+  /* ── 0% a 45%: Camina hacia la derecha (Fila superior) ── */
   0% {
     left: -40%;
     top: -65%;
     animation-timing-function: linear;
   }
 
-  /* --- 40%: LLEGA AL FINAL (Lado derecho) --- */
-  40% {
+  45% {
     left: 80%;
     top: -65%;
-    /* Aceleración para la caída (simula gravedad) */
+    /* Inicia la caída con aceleración (simulando gravedad) */
     animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
 
-  /* --- 43%: ATERRIZAJE ABAJO (Avanza un poco por inercia) --- */
-  43% {
+  /* ── 45% a 50%: CAE Y GIRA AL MISMO TIEMPO (Sin detenerse) ── */
+  50% {
     left: 82%;
     top: 85%;
     animation-timing-function: linear;
   }
 
-  /* (Tu modelo en Spline hace el giro aquí, así que el CSS solo espera) */
-  /* --- 45%: PREPARADA PARA REGRESAR --- */
-  45% {
-    left: 82%;
-    top: 85%;
-  }
-
-  /* --- 90%: LLEGA AL OTRO EXTREMO (Lado izquierdo) --- */
-  90% {
+  /* ── 50% a 95%: Camina hacia la izquierda (Fila inferior) ── */
+  95% {
     left: -35%;
     top: 85%;
-    /* Impulso para el salto hacia arriba */
+    /* Impulso para el salto de regreso hacia arriba */
     animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  /* --- 93%: LLEGADA ARRIBA --- */
-  93% {
-    left: -40%;
-    top: -65%;
-    animation-timing-function: linear;
-  }
-
-  /* (Tu modelo en Spline hace el giro de nuevo) */
-  /* --- 96%: PREPARADA PARA EL SIGUIENTE CICLO --- */
-  96% {
-    left: -40%;
-    top: -65%;
-  }
-
-  /* --- 100%: CIERRE DEL BUCLE (Igual al 0%) --- */
+  /* ── 95% a 100%: SALTA Y GIRA AL MISMO TIEMPO (Cierre del bucle) ── */
   100% {
     left: -40%;
     top: -65%;

@@ -112,16 +112,19 @@ kidsboroLetters.forEach((def, i) => rowK.appendChild(buildLetter(def, i * 80)));
 const rowA = document.getElementById('row-academy');
 academyLetters.forEach((def, i) => rowA.appendChild(buildLetter(def, 640 + i * 80)));
 
-// Niño Y (Rojo) - Construido manualmente con su preview
+// Niño Y (Rojo) - Construido manualmente con su preview (AHORA EN 3D)
 const yDelay = 640 + 6 * 80;
 const ySpan = document.createElement('a');
 ySpan.href = "#link-y";
-ySpan.className = 'letter letter-y letter-out';
+ySpan.className = '';
 ySpan.id = 'l-y';
-ySpan.style.color = '#ed1f24';
-
-// Inyectamos el SVG del niño rojo + el HTML del Tooltip preview
-ySpan.innerHTML = svgs.kidY + `<div class="preview-card"><img src="preview-y.jpg" alt="Preview de página" onerror="this.style.display='none'"></div>`;
+// Inyectamos el visor de Spline 3D del niño rojo + el HTML del Tooltip preview
+ySpan.innerHTML = `
+<spline-viewer url="https://prod.spline.design/za4z3WAlnNmPCAtJ/scene.splinecode"></spline-viewer>
+  <div class="preview-card">
+    <img src="preview-y.jpg" alt="Preview de página" onerror="this.style.display='none'">
+  </div>
+`;
 
 setTimeout(() => ySpan.classList.replace('letter-out', 'letter-in'), yDelay);
 rowA.appendChild(ySpan);

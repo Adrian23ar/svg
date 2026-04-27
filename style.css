@@ -1,3 +1,11 @@
+/* ── REGISTRO DE FUENTE LOCAL ── */
+@font-face {
+  font-family: 'MilkyQuaker';
+  src: url('MilkyQuaker.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 *,
 *::before,
 *::after {
@@ -12,7 +20,9 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  font-family: "Lilita One", "Arial Black", sans-serif;
+font-family: 'MilkyQuaker', sans-serif;
+  font-weight: 400;
+  font-style: normal;
   overflow: hidden;
 }
 
@@ -110,7 +120,7 @@ body {
 
 a.letter {
   display: inline-block;
-  font-family: "Lilita One", sans-serif;
+font-family: 'MilkyQuaker', sans-serif;
   font-size: clamp(3rem, 10vw, 7rem);
   line-height: 0.95;
   letter-spacing: 0.01em;
@@ -251,32 +261,31 @@ a.letter {
   animation: pageTurnLoop 3s ease-in-out infinite;
 }
 
-/* 3. Y - Niño Rojo Saludando (Bucle infinito) */
-@keyframes saluteLoop {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  20% {
-    transform: rotate(-20deg);
-  }
-  40% {
-    transform: rotate(-10deg);
-  }
-  60% {
-    transform: rotate(-20deg);
-  }
-  80% {
-    transform: rotate(-5deg);
-  }
+/* ── AJUSTES PARA EL NIÑO ROJO 3D (Y) ── */
+
+/* 1. Forzamos a la caja de la Y a tener el tamaño estricto de una letra normal */
+#l-y {
+  position: relative;
+  right: 1rem;
+  width: clamp(3.8rem, 8vw, 7rem) !important; /* Ancho estricto */
+  height: clamp(4rem, 10vw, 8rem) !important; /* Alto estricto */
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-#l-y #brazo-der {
-  transform-box: fill-box;
-  /* ¡LA CLAVE ESTÁ AQUÍ! Moví el eje de rotación un poco más a la izquierda y arriba */
-  /* Ajuste fino para la forma específica de tu SVG */
-  transform-origin: 1% 100%;
-  animation: saluteLoop 2.2s ease-in-out infinite;
+/* 2. El visor de Spline se vuelve "fantasma" y se centra */
+#l-y spline-viewer {
+
+  
+  /* Combinamos el centrado con la escala que ya le habías puesto */
+  /* Ajusta este 1.6 si necesitas que el niño sea más grande o más pequeño */
+  transform-origin: bottom center;
+  
+  /* Básicos para que no estorbe */
+  background: transparent; 
+  border: none;
+  pointer-events: none; 
 }
 
 /* ── FASE 3: NIÑA VERDE CAMINANTE (Estructura en Capas para Humanizar) ── */
@@ -298,13 +307,6 @@ a.letter {
   height: 100%;
 }
 
-/* Solo conservamos los ejes de rotación (las "bisagras" de la cadera y hombro) */
-.green-walker #leg_left,
-.green-walker #leg_right,
-.green-walker #arm {
-  transform-box: fill-box;
-  transform-origin: top center;
-}
 /* ANIMACIÓN: walkComplexPath (Ahora se aplica al contenedor externo) */
 @keyframes walkComplexPath {
   /* ── 0% a 45%: Camina hacia la derecha (Fila superior) ── */
@@ -396,7 +398,7 @@ a#logo {
 }
 .sub-char {
   display: inline-block;
-  font-family: "Lilita One", sans-serif;
+  font-family: "Lilita One", "Arial Black", sans-serif;
   font-size: clamp(0.55rem, 1.7vw, 0.9rem);
   color: #00b8a0;
   letter-spacing: 0.16em;
